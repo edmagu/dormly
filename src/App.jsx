@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-const API_BASE = "/api";
+// ── Waitlist form config ─────────────────────────────────────────────
+// Using Formspree for static-site form handling (free tier).
+// 1. Sign up at https://formspree.io  2. Create a form  3. Paste your form ID below.
+const FORMSPREE_ID = "YOUR_FORMSPREE_ID"; // ← replace with your Formspree form ID
 
 export default function App() {
   const [formState, setFormState] = useState({ status: "idle", message: "" });
@@ -10,15 +13,13 @@ export default function App() {
     const data = Object.fromEntries(new FormData(e.target));
     setFormState({ status: "loading", message: "" });
     try {
-      const res = await fetch(`${API_BASE}/waitlist`, {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ email: data.email, role: data.role }),
       });
-      const text = await res.text();
-      const json = text ? JSON.parse(text) : {};
-      if (!res.ok) throw new Error(json.error || "Something went wrong");
-      setFormState({ status: "success", message: json.message || "You're on the list!" });
+      if (!res.ok) throw new Error("Something went wrong — please try again.");
+      setFormState({ status: "success", message: "You're on the list! We'll reach out soon." });
       e.target.reset();
     } catch (err) {
       setFormState({ status: "error", message: err.message });
@@ -30,7 +31,7 @@ export default function App() {
       <header style={s.header}>
         <div style={s.headerInner}>
           <div style={s.brandRow}>
-            <img src="/Dormly Cavicon.png" alt="Dormly" style={s.logo} />
+            <img src={`${import.meta.env.BASE_URL}Dormly Cavicon.png`} alt="Dormly" style={s.logo} />
             <div>
               <div style={s.brand}>Dormly</div>
               <div style={s.tag}>Student renting, matched + commute-aware</div>
@@ -169,7 +170,7 @@ export default function App() {
       <footer style={s.footer}>
         <div style={s.footerInner}>
           <div style={s.footerBrand}>
-            <img src="/Dormly Logo + Favicon.png" alt="Dormly" style={s.footerLogo} />
+            <img src={`${import.meta.env.BASE_URL}Dormly Logo + Favicon.png`} alt="Dormly" style={s.footerLogo} />
             <span style={s.brand}>Dormly</span>
           </div>
           <div style={s.footerText}>© {new Date().getFullYear()} Dormly</div>
