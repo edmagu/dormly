@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "email": "afafa@gmail.com",
+    "name": "afafa",
+    "role": "landlord",
+    "passwordHash": "$2a$10$S6SWXnjihIowurR0fPiyo.Sux9OYbJY0F8I.xvTV/Ap5doGainZyy",
+    "createdAt": "2026-04-13T17:33:54.162Z"
+  },
+  {
+    "id": 2,
+    "email": "elias@gmail.com",
+    "name": "Elias",
+    "role": "student",
+    "passwordHash": "$2a$10$wwyZQMkwUmj/UN1nCcmbwui9Whi9rubnkWx6Ms7qyGYxRUoTQeP6i",
+    "createdAt": "2026-04-13T17:35:47.373Z"
+  }
+]

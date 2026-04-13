@@ -6,4 +6,13 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "/dormly/",
   plugins: [react()],
+  server: {
+    // Proxy API calls to the Express service during local development
+    proxy: {
+      "/api": {
+        target: "http://localhost:3002",
+        changeOrigin: true,
+      },
+    },
+  },
 });
